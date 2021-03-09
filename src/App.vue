@@ -4,8 +4,45 @@
   </div>
 </template>
 <script>
+import { setStore, getStore } from "@/views/storage";
+
 export default {
   created() {
+    this.getMentList()
+  },
+  methods: {
+    getMentList() {
+      console.log(getStore("isLogin"))
+      if (getStore("isLogin") !== 'true') {
+        return
+      }
+      let menuData = [{
+        path: '/console',
+        name: 'Console',
+        component: () => import('@/views/Layout.vue'),
+        children: []
+      }];
+      let childrenData = [
+        {
+          path: '/test1',
+          component: "Test1"
+        }, {
+          path: '/test2',
+          component: "Test2"
+        }, {
+          path: '/test3',
+          component: "Test3"
+        }];
+      childrenData.forEach(item => {
+        menuData[0].children.push({
+          path: item.path,
+          component: () => import(`@/views/${item.component}.vue`)
+        })
+      });
+      this.$router.addRoutes(menuData);
+      setStore("menuData", childrenData)
+      this.$store.commit('setMenuData', childrenData)
+    }
   }
 }
 </script>

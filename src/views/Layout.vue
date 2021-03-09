@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { getStore, setStore } from "@/views/storage";
+
 export default {
   data() {
     return {
@@ -34,7 +36,8 @@ export default {
       this.$router.push(path)
     },
     logout() {
-      this.$router.push("/")
+      this.$router.push("/");
+      setStore("isLogin", false)
     }
   }
 }

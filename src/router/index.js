@@ -77,12 +77,13 @@ const setMenu = () => {
 }
 
 router.beforeEach((to, from, next) => {
-  let mLength = store.state.menuData.length//用于解决刷新空白的问题
-  if (mLength === 0 && to.path !== "/") {
-    setMenu()
-    next({ ...to, replace: true })
-  } else {
-    next()
-  }
+  // let mLength = store.state.menuData.length//用于解决刷新空白的问题
+  // if (mLength === 0 && to.path !== "/") {
+  //   setMenu()
+  //   next({ ...to, replace: true })
+  // } else {
+  //   next()
+  // }
+  next()
 })
 export default router
